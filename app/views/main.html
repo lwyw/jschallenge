@@ -1,9 +1,28 @@
 <div class="jumbotron">
-  <h2>Welcome to smove's JSChallenge!</h2>
-  <p class="lead">
-    Now it's your turn.</br>
-    Blow us away with your awesomeness.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-  <p>ps. go have a look at main.js for the api call</p>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Smove quickly, the next available car starts from</h3>
+      <p>{{start | date : 'MMM d, y h:mm a'}}</p>
+      <h3>to</h3>
+      <p>{{end | date : 'MMM d, y h:mm a'}}</p>
+      <form class="form-inline">
+        <h3>and</h3>
+        <div class="form-group">
+          <label for="duration">I want my car for</label>
+          <select id="duration" class="form-control" ng-model="duration.select">
+            <option ng-repeat="startsIn in duration.selection track by $index">{{startsIn}}</option>
+          </select>
+          <label for="duration">hour(s)</label>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="alert alert-warning" role="alert" ng-show="noCarFound">Sorry, no car available.</div>
+<div class="panel panel-default" ng-repeat="car in availableCars">
+  <div class="panel-heading">{{car.code}}</div>
+  <div class="panel-body">
+    <button class="btn btn-success">Reserve me</button> @ {{car.parking_name}}
+    {{car.distance ? ', I am ' + (car.distance | number) + ' km away.' : ''}}
+  </div>
 </div>
